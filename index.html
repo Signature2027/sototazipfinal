@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#05091a">
+  <title>Sotota Attendance</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="toast" class="toast"></div>
+
+<!-- LOGIN -->
+<section id="loginScreen" class="screen login-screen">
+  <div class="login-glow glow-a"></div><div class="login-glow glow-b"></div>
+  <div class="login-card glass">
+    <div class="brand-mark">SA</div>
+    <div class="eyebrow">SOTOTA PRE-CADET SCHOOL</div>
+    <h1>Sotota <span>Attendance</span></h1>
+    <p class="muted">Smart daily attendance & student monitoring</p>
+
+    <div class="role-switch">
+      <button class="role active" data-role="admin">Admin</button>
+      <button class="role" data-role="teacher">Teacher</button>
+    </div>
+
+    <label class="label">USER ID</label>
+    <input id="loginId" class="input" placeholder="admin" autocomplete="username">
+    <label class="label">PASSWORD</label>
+    <input id="loginPassword" class="input" type="password" placeholder="••••••••" autocomplete="current-password">
+    <button id="loginBtn" class="btn primary full">Sign in <span>→</span></button>
+    <div class="demo-hint">Demo Admin: <b>admin</b> / <b>1234</b> · Teacher: <b>teacher01</b> / <b>1234</b></div>
+  </div>
+</section>
+
+<!-- APP -->
+<section id="appScreen" class="app hidden">
+  <header class="topbar glass">
+    <div class="brand">
+      <button id="menuBtn" class="icon-btn mobile-only">☰</button>
+      <div class="brand-mark small">SA</div>
+      <div><b>Sotota Attendance</b><small id="roleText">Admin</small></div>
+    </div>
+    <div class="top-actions">
+      <button id="themeBtn" class="icon-btn" title="Theme">☾</button>
+      <button id="logoutBtn" class="icon-btn" title="Logout">↪</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside id="sidebar" class="sidebar glass">
+      <div class="profile">
+        <div class="avatar" id="avatar">A</div>
+        <div><b id="userName">Admin</b><small id="userRole">Administrator</small></div>
+      </div>
+      <nav id="nav"></nav>
+      <div class="side-footer">Sotota Attendance v1.0</div>
+    </aside>
+
+    <main class="main">
+      <div id="view"></div>
+    </main>
+  </div>
+</section>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
