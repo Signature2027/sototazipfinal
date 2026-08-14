@@ -1,67 +1,214 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="bn">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#05091a">
-  <title>Sotota Attendance</title>
+  <meta name="theme-color" content="#0066cc">
+  <title>Sotota Attendance System</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div id="toast" class="toast"></div>
+<div id="overlay" class="overlay"></div>
 
-<!-- LOGIN -->
+<!-- LOGIN SCREEN -->
 <section id="loginScreen" class="screen login-screen">
-  <div class="login-glow glow-a"></div><div class="login-glow glow-b"></div>
-  <div class="login-card glass">
-    <div class="brand-mark">SA</div>
-    <div class="eyebrow">SOTOTA PRE-CADET SCHOOL</div>
-    <h1>Sotota <span>Attendance</span></h1>
-    <p class="muted">Smart daily attendance & student monitoring</p>
+  <div class="login-bg">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+  
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="logo-circle">
+          <div class="logo-text">SA</div>
+        </div>
+        <h1>Sotota Attendance</h1>
+        <p class="subtitle">School Management System</p>
+      </div>
 
-    <div class="role-switch">
-      <button class="role active" data-role="admin">Admin</button>
-      <button class="role" data-role="teacher">Teacher</button>
+      <div class="role-selector">
+        <button class="role-btn active" data-role="admin">
+          <span class="role-icon">👨‍💼</span>
+          <span class="role-label">Admin</span>
+        </button>
+        <button class="role-btn" data-role="teacher">
+          <span class="role-icon">👨‍🏫</span>
+          <span class="role-label">Teacher</span>
+        </button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">User ID</label>
+        <input id="loginId" class="form-input" type="text" placeholder="Enter your ID" autocomplete="username">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div class="password-input-wrapper">
+          <input id="loginPassword" class="form-input" type="password" placeholder="••••••••" autocomplete="current-password">
+          <button class="toggle-password" type="button" onclick="togglePasswordVisibility()">👁️</button>
+        </div>
+      </div>
+
+      <button id="loginBtn" class="btn btn-primary btn-lg">
+        <span>Sign In</span>
+        <span class="btn-arrow">→</span>
+      </button>
+
+      <div class="login-footer">
+        <p class="info-text">Default credentials are disabled for security. Please use your assigned credentials.</p>
+      </div>
     </div>
-
-    <label class="label">USER ID</label>
-    <input id="loginId" class="input" placeholder="admin" autocomplete="username">
-    <label class="label">PASSWORD</label>
-    <input id="loginPassword" class="input" type="password" placeholder="••••••••" autocomplete="current-password">
-    <button id="loginBtn" class="btn primary full">Sign in <span>→</span></button>
-    <div class="demo-hint">Demo Admin: <b>admin</b> / <b>1234</b> · Teacher: <b>teacher01</b> / <b>1234</b></div>
   </div>
 </section>
 
-<!-- APP -->
-<section id="appScreen" class="app hidden">
-  <header class="topbar glass">
-    <div class="brand">
-      <button id="menuBtn" class="icon-btn mobile-only">☰</button>
-      <div class="brand-mark small">SA</div>
-      <div><b>Sotota Attendance</b><small id="roleText">Admin</small></div>
+<!-- MAIN APP -->
+<section id="appScreen" class="screen app-screen hidden">
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-left">
+      <button id="menuBtn" class="icon-btn mobile-only">
+        <span class="menu-icon"></span>
+      </button>
+      <div class="header-brand">
+        <div class="brand-logo">SA</div>
+        <div class="brand-text">
+          <div class="brand-title">Sotota Attendance</div>
+          <div class="brand-subtitle" id="roleBadge">Admin Panel</div>
+        </div>
+      </div>
     </div>
-    <div class="top-actions">
-      <button id="themeBtn" class="icon-btn" title="Theme">☾</button>
-      <button id="logoutBtn" class="icon-btn" title="Logout">↪</button>
+    <div class="header-actions">
+      <button id="searchBtn" class="icon-btn">🔍</button>
+      <button id="notifyBtn" class="icon-btn">🔔</button>
+      <button id="themeBtn" class="icon-btn">☾</button>
+      <button id="settingsBtn" class="icon-btn">⚙️</button>
+      <button id="logoutBtn" class="icon-btn">↪️</button>
     </div>
   </header>
 
-  <div class="layout">
-    <aside id="sidebar" class="sidebar glass">
-      <div class="profile">
-        <div class="avatar" id="avatar">A</div>
-        <div><b id="userName">Admin</b><small id="userRole">Administrator</small></div>
+  <!-- Sidebar -->
+  <aside id="sidebar" class="app-sidebar">
+    <div class="sidebar-profile">
+      <div class="profile-avatar" id="profileAvatar">A</div>
+      <div class="profile-info">
+        <div class="profile-name" id="profileName">User</div>
+        <div class="profile-role" id="profileRole">Administrator</div>
       </div>
-      <nav id="nav"></nav>
-      <div class="side-footer">Sotota Attendance v1.0</div>
-    </aside>
+      <button class="profile-settings" onclick="openSettings()">⚙️</button>
+    </div>
 
-    <main class="main">
-      <div id="view"></div>
-    </main>
-  </div>
+    <div class="sidebar-divider"></div>
+
+    <nav id="navMenu" class="sidebar-nav"></nav>
+
+    <div class="sidebar-footer">
+      <div class="version">v2.0</div>
+      <p class="footer-text">Sotota Pre-Cadet School</p>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="app-main">
+    <div id="contentView" class="content-view"></div>
+  </main>
 </section>
+
+<!-- SETTINGS MODAL -->
+<div id="settingsModal" class="modal hidden">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <h2>Settings & Profile</h2>
+      <button class="close-btn" onclick="closeSettings()">×</button>
+    </div>
+    <div class="modal-content">
+      <div class="settings-tabs">
+        <button class="tab-btn active" onclick="switchTab('profile')">Profile</button>
+        <button class="tab-btn" onclick="switchTab('password')">Change Password</button>
+        <button class="tab-btn" onclick="switchTab('system')">System</button>
+      </div>
+
+      <!-- Profile Tab -->
+      <div id="profileTab" class="tab-content active">
+        <div class="setting-group">
+          <label class="form-label">Full Name</label>
+          <input id="settingName" class="form-input" type="text" readonly>
+        </div>
+        <div class="setting-group">
+          <label class="form-label">User ID</label>
+          <input id="settingId" class="form-input" type="text" readonly>
+        </div>
+        <div class="setting-group">
+          <label class="form-label">Role</label>
+          <input id="settingRole" class="form-input" type="text" readonly>
+        </div>
+        <div id="teacherClassGroup" class="setting-group hidden">
+          <label class="form-label">Assigned Class</label>
+          <input id="settingClass" class="form-input" type="text" readonly>
+        </div>
+      </div>
+
+      <!-- Password Tab -->
+      <div id="passwordTab" class="tab-content hidden">
+        <div class="setting-group">
+          <label class="form-label">Current Password</label>
+          <div class="password-input-wrapper">
+            <input id="currentPassword" class="form-input" type="password" placeholder="••••••••">
+            <button class="toggle-password" type="button" onclick="togglePwdViz('currentPassword')">👁️</button>
+          </div>
+        </div>
+        <div class="setting-group">
+          <label class="form-label">New Password</label>
+          <div class="password-input-wrapper">
+            <input id="newPassword" class="form-input" type="password" placeholder="••••••••">
+            <button class="toggle-password" type="button" onclick="togglePwdViz('newPassword')">👁️</button>
+          </div>
+        </div>
+        <div class="setting-group">
+          <label class="form-label">Confirm Password</label>
+          <div class="password-input-wrapper">
+            <input id="confirmPassword" class="form-input" type="password" placeholder="••••••••">
+            <button class="toggle-password" type="button" onclick="togglePwdViz('confirmPassword')">👁️</button>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-block" onclick="changePassword()">Update Password</button>
+      </div>
+
+      <!-- System Tab -->
+      <div id="systemTab" class="tab-content hidden">
+        <div class="setting-group">
+          <div class="setting-item">
+            <div>
+              <div class="setting-title">Dark Mode</div>
+              <div class="setting-desc">Use dark theme for better night visibility</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+        <div class="setting-group">
+          <div class="setting-item">
+            <div>
+              <div class="setting-title">Notifications</div>
+              <div class="setting-desc">Enable desktop notifications</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" checked>
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+        <div class="divider" style="margin: 20px 0;"></div>
+        <button class="btn btn-danger btn-block" onclick="confirmLogout()">Sign Out</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="config.js"></script>
 <script src="app.js"></script>
